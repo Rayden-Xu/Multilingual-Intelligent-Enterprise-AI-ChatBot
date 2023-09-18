@@ -15,6 +15,7 @@ dependencies:
   - dataclasses
   - textwrap
   - graphviz
+  - python-graphviz
   - pip
   - pip:
     - streamlit-pandas-profiling
