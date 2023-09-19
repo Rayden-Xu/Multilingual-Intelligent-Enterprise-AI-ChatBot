@@ -13,22 +13,24 @@ dependencies:
   - streamlit
   - openai
   - dataclasses
-  - graphviz
-  - boto3
-  - flask
-  - pymysql
-  - ffmpeg-python
+  - python-graphviz
   - pip
   - pip:
     - streamlit-pandas-profiling
     - pinecone-client
+    - openai
     - streamlit-audiorecorder
+    - ffmpeg-python
     - openai-whisper
     - librosa
     - streamlit-chat
+    - boto3
     - langchain 
+    - pymysql
     - pexpect
     - audio-recorder-streamlit
+    - streamlit-audiorecorder
+    - flask
     - tiktoken
     - tabulate
     - sweetviz
