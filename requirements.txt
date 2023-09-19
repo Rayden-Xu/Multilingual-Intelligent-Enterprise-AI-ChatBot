@@ -33,4 +33,5 @@ accelerate
 einops
 huggingface-hub
 streamlit-agraph
+elevenlabs
 
