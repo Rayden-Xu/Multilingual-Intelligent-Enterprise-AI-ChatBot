@@ -1,3 +1,4 @@
+openai
 elevenlabs==0.2.26
 pandas-profiling
 numpy
@@ -7,7 +8,6 @@ seaborn
 openpyxl
 networkx
 streamlit
-openai
 dataclasses
 textwrap3
 graphviz
