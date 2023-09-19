@@ -1,5 +1,5 @@
 import sys
-# sys.path.append("./SadTalker")
+sys.path.append("./SadTalker")
 import os
 import time
 from time import strftime
@@ -9,124 +9,124 @@ import elevenlabs
 import numpy as np
 from elevenlabs import clone, generate, play, set_api_key
 from elevenlabs import voices
-# import shutil
-# from SadTalker.src.utils.preprocess import CropAndExtract
-# from SadTalker.src.test_audio2coeff import Audio2Coeff  
-# from SadTalker.src.facerender.animate import AnimateFromCoeff
-# from SadTalker.src.facerender.pirender_animate import AnimateFromCoeff_PIRender
-# from SadTalker.src.generate_batch import get_data
-# from SadTalker.src.generate_facerender_batch import get_facerender_data
-# from SadTalker.src.utils.init_path import init_path
-# from argparse import Namespace
-# import streamlit as st
-# # API Keys
+import shutil
+from SadTalker.src.utils.preprocess import CropAndExtract
+from SadTalker.src.test_audio2coeff import Audio2Coeff  
+from SadTalker.src.facerender.animate import AnimateFromCoeff
+from SadTalker.src.facerender.pirender_animate import AnimateFromCoeff_PIRender
+from SadTalker.src.generate_batch import get_data
+from SadTalker.src.generate_facerender_batch import get_facerender_data
+from SadTalker.src.utils.init_path import init_path
+from argparse import Namespace
+import streamlit as st
+# API Keys
 
-# set_api_key(st.secrets['tts_key'])
-# openai.api_key= st.secrets['openai.api_key']
-# user_profile_url = "/mount/src/demo/src/biden_profile.png"
-# biden_profile_url = "/mount/src/demo/src/user_profile.png"
+set_api_key(st.secrets['tts_key'])
+openai.api_key= st.secrets['openai.api_key']
+user_profile_url = "/mount/src/demo/src/biden_profile.png"
+biden_profile_url = "/mount/src/demo/src/user_profile.png"
 
-# st.set_page_config(page_title="Chatbot", page_icon="💬")
-# st.header('Talk with President Joe Biden')
+st.set_page_config(page_title="Chatbot", page_icon="💬")
+st.header('Talk with President Joe Biden')
 
-# # Global variables
-# current_root_path = os.getcwd()
-# checkpoint_dir = "./checkpoints"
-# size = 256
-# old_version = "old_version_value"
-# preprocess = 'full'
-# device = "cuda"
+# Global variables
+current_root_path = os.getcwd()
+checkpoint_dir = "./checkpoints"
+size = 256
+old_version = "old_version_value"
+preprocess = 'full'
+device = "cuda"
 
-# #sadtalker initialize load model
+#sadtalker initialize load model
 
-# @st.cache_data
-# def load_all_static_info():
-#     sadtalker_paths = init_path(checkpoint_dir, os.path.join(current_root_path, 'src/config'), size, old_version, preprocess)
-#     preprocess_model = CropAndExtract(sadtalker_paths, device)
-#     audio_to_coeff = Audio2Coeff(sadtalker_paths, device)
-#     animate_from_coeff = AnimateFromCoeff_PIRender(sadtalker_paths, device)
-#     all_voices = voices()
-#     ftvoice = next((v for v in all_voices if v.name == "Biden"), None)
-#     source_image_path = "./00117-2958808156.png" 
-#     result_dir ='./txt_result/video'
-#     save_dir = os.path.join(result_dir, strftime("%Y_%m_%d_%H.%M.%S"))
+@st.cache_data
+def load_all_static_info():
+    sadtalker_paths = init_path(checkpoint_dir, os.path.join(current_root_path, 'src/config'), size, old_version, preprocess)
+    preprocess_model = CropAndExtract(sadtalker_paths, device)
+    audio_to_coeff = Audio2Coeff(sadtalker_paths, device)
+    animate_from_coeff = AnimateFromCoeff_PIRender(sadtalker_paths, device)
+    all_voices = voices()
+    ftvoice = next((v for v in all_voices if v.name == "Biden"), None)
+    source_image_path = "./00117-2958808156.png" 
+    result_dir ='./txt_result/video'
+    save_dir = os.path.join(result_dir, strftime("%Y_%m_%d_%H.%M.%S"))
 
-#     return preprocess_model, audio_to_coeff, animate_from_coeff, ftvoice, save_dir,source_image_path
+    return preprocess_model, audio_to_coeff, animate_from_coeff, ftvoice, save_dir,source_image_path
 
 
-# preprocess_model, audio_to_coeff, animate_from_coeff, ftvoice, save_dir,source_image_path = load_all_static_info()
+preprocess_model, audio_to_coeff, animate_from_coeff, ftvoice, save_dir,source_image_path = load_all_static_info()
 
-# def __init__():
-#     all_voices = voices()
-#     voice = next((v for v in all_voices if v.name == "Biden"), None)
-#     if not voice:
-#         raise ValueError("Voice 'Biden' not found in ElevenLabs voices.")
+def __init__():
+    all_voices = voices()
+    voice = next((v for v in all_voices if v.name == "Biden"), None)
+    if not voice:
+        raise ValueError("Voice 'Biden' not found in ElevenLabs voices.")
 
-#     print("Audio Processor initial done")
+    print("Audio Processor initial done")
     
 
-# def convert_text_to_audio(text, output_audio_path):
-#     audio = generate(text=text, voice=ftvoice)
-#     with open(output_audio_path, 'wb') as f:
-#         f.write(audio)
+def convert_text_to_audio(text, output_audio_path):
+    audio = generate(text=text, voice=ftvoice)
+    with open(output_audio_path, 'wb') as f:
+        f.write(audio)
 
 
-# def run_sadtalker(source_image_path, driven_audio_path,preprocess_model, audio_to_coeff, animate_from_coeff):
+def run_sadtalker(source_image_path, driven_audio_path,preprocess_model, audio_to_coeff, animate_from_coeff):
 
-#     # Define default parameters and configurations for the model
-#     args = Namespace(
-#         ref_eyeblink=None,
-#         ref_pose=None,
-#         checkpoint_dir='./checkpoints',
-#         result_dir='./txt_result/video',
-#         pose_style=0,
-#         batch_size=50,
-#         size=256,
-#         expression_scale=1.0,
-#         input_yaw=None,
-#         input_pitch=None,
-#         input_roll=None,
-#         enhancer=None,
-#         background_enhancer=None,
-#         cpu=False,
-#         face3dvis=False,
-#         still=True,
-#         preprocess='full',
-#         verbose=False,
-#         old_version=False,
-#         facerender='pirender',
-#         net_recon='resnet50',
-#         init_path=None,
-#         use_last_fc=False,
-#         bfm_folder='./checkpoints/BFM_Fitting/',
-#         bfm_model='BFM_model_front.mat',
-#         focal=1015.0,
-#         center=112.0,
-#         camera_d=10.0,
-#         z_near=5.0,
-#         z_far=15.0
-#     )
+    # Define default parameters and configurations for the model
+    args = Namespace(
+        ref_eyeblink=None,
+        ref_pose=None,
+        checkpoint_dir='./checkpoints',
+        result_dir='./txt_result/video',
+        pose_style=0,
+        batch_size=50,
+        size=256,
+        expression_scale=1.0,
+        input_yaw=None,
+        input_pitch=None,
+        input_roll=None,
+        enhancer=None,
+        background_enhancer=None,
+        cpu=False,
+        face3dvis=False,
+        still=True,
+        preprocess='full',
+        verbose=False,
+        old_version=False,
+        facerender='pirender',
+        net_recon='resnet50',
+        init_path=None,
+        use_last_fc=False,
+        bfm_folder='./checkpoints/BFM_Fitting/',
+        bfm_model='BFM_model_front.mat',
+        focal=1015.0,
+        center=112.0,
+        camera_d=10.0,
+        z_near=5.0,
+        z_far=15.0
+    )
 
-#     # Parse the arguments
-#     pose_style = args.pose_style
-#     batch_size = args.batch_size
-#     input_yaw_list = args.input_yaw
-#     input_pitch_list = args.input_pitch
-#     input_roll_list = args.input_roll
-#     ref_eyeblink = args.ref_eyeblink
-#     ref_pose = args.ref_pose
+    # Parse the arguments
+    pose_style = args.pose_style
+    batch_size = args.batch_size
+    input_yaw_list = args.input_yaw
+    input_pitch_list = args.input_pitch
+    input_roll_list = args.input_roll
+    ref_eyeblink = args.ref_eyeblink
+    ref_pose = args.ref_pose
 
-#     first_frame_dir = os.path.join(save_dir, 'first_frame_dir')
-#     os.makedirs(first_frame_dir, exist_ok=True)
-#     print('3DMM Extraction for source image')
-#     # Extract 3D Morphable Model (3DMM) coefficients for the source image
-#     first_coeff_path, crop_pic_path, crop_info =  preprocess_model.generate(source_image_path, first_frame_dir, preprocess,\
-#                                                                             source_image_flag=True, pic_size=size)
+    first_frame_dir = os.path.join(save_dir, 'first_frame_dir')
+    os.makedirs(first_frame_dir, exist_ok=True)
+    print('3DMM Extraction for source image')
+    # Extract 3D Morphable Model (3DMM) coefficients for the source image
+    first_coeff_path, crop_pic_path, crop_info =  preprocess_model.generate(source_image_path, first_frame_dir, preprocess,\
+                                                                            source_image_flag=True, pic_size=size)
     
-#     # Create directory to save data related to the first frame
-#     if first_coeff_path is None:
-#         print("Can't get the coeffs of the input")
-#         return
+    # Create directory to save data related to the first frame
+    if first_coeff_path is None:
+        print("Can't get the coeffs of the input")
+        return
 
     ref_eyeblink_coeff_path=None
 
