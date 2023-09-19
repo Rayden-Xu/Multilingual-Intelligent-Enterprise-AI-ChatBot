@@ -13,7 +13,6 @@ textwrap3
 graphviz
 streamlit-pandas-profiling
 pinecone-client
-openai
 streamlit-audiorecorder
 ffmpeg-python
 openai-whisper
