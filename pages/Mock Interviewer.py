@@ -5,6 +5,7 @@ import openai
 import boto3
 from streamlit_chat import message
 from audio_recorder_streamlit import audio_recorder
+import elevenlabs
 
 # Continue the conversation
 def continue_conversation(conversation_history, user_message):
