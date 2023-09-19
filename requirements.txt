@@ -1,6 +1,5 @@
 openai
 elevenlabs==0.2.26
-pandas-profiling
 numpy
 pandas
 matplotlib
@@ -11,27 +10,22 @@ streamlit
 dataclasses
 textwrap3
 graphviz
-streamlit-pandas-profiling
 pinecone-client
-streamlit-audiorecorder
 ffmpeg-python
 openai-whisper
 librosa
 streamlit-chat
 boto3
 langchain
-pymysql
 pexpect
 audio-recorder-streamlit
-streamlit-audiorecorder
-flask
 tiktoken
 tabulate
-sweetviz
 transformers
 accelerate
 einops
 huggingface-hub
 streamlit-agraph
+
 
 
